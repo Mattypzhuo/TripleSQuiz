@@ -6,7 +6,7 @@ import {
 
 // TripleS Cosmos Member Data
 const TRIPLE_S_MEMBERS = [
-  { s: "S1", name: "Yoon SeoYeon", color: "#2E8B57", birthday: "August 6, 2003", img: "https://cdn.discordapp.com/attachments/1447032754930716796/1453937371677589767/230806-triples-twitter-update-happy-birthday-s1-seoyeon-v0-38eegqtq0hgb1.webp", bio: "The first member of tripleS and the beginning of the journey." },
+  { s: "S1", name: "Yoon SeoYeon", color: "#2E8B57", birthday: "August 6, 2003", img: "https://preview.redd.it/230806-triples-twitter-update-happy-birthday-s1-seoyeon-v0-38eegqtq0hgb1.jpg?auto=webp&s=f910be1c7683f6c5dc9aea4d7b010314e156b99b", bio: "The first member of tripleS and the beginning of the journey." },
   { s: "S2", name: "Jeong HyeRin", color: "#87CEEB", birthday: "April 12, 2007", img: "https://cdn.discordapp.com/attachments/1447032754930716796/1453937830547030026/jeong-hyerin-photo-4.png", bio: "Known for her incredible dance skills and stage presence." },
   { s: "S3", name: "Lee JiWoo", color: "#FFD700", birthday: "October 24, 2005", img: "https://cdn.discordapp.com/attachments/1447032754930716796/1453938604614225930/lee-jiwoo-photo-4.png", bio: "A powerful vocalist who participated in 'My Teenage Girl'." },
   { s: "S4", name: "Kim ChaeYeon", color: "#FF69B4", birthday: "December 4, 2004", img: "https://cdn.discordapp.com/attachments/1447032754930716796/1453939188146770083/250518-triples-chaeyeon-v0-tg0rkkd55m1f1.png", bio: "Former Busters member with extensive experience in the industry." },
