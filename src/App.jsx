@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css'; // <--- IMPORTANT: Import your CSS here
 import { 
   Users, Trophy, ChevronRight, Search, Brain, PlayCircle, 
   Cake, Eye, RefreshCw, LayoutGrid, ChevronLeft 
@@ -71,6 +70,66 @@ const MemberAvatar = ({ member, size = "md", className = "" }) => {
   );
 };
 
+// Inline styles to fix compilation error in Canvas preview
+const Styles = () => (
+  <style>{`
+    @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+    
+    :root {
+      --cosmos-black: #000000;
+      --cosmos-zinc: #09090b;
+      --cosmos-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background-color: var(--cosmos-black);
+      color: white;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    .cosmos-font-tracking {
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .glass-panel {
+      background: rgba(9, 9, 11, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--cosmos-border);
+    }
+
+    .member-card-glow {
+      transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .member-card-glow:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-cosmos {
+      animation: fade-in 0.7s ease-out forwards;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--cosmos-black);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--cosmos-border);
+    }
+  `}</style>
+);
+
 export default function App() {
   const [view, setView] = useState(MODES.HOME);
   const [activeType, setActiveType] = useState('full');
@@ -112,6 +171,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+      <Styles />
       <nav className="glass-panel sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView(MODES.HOME)}>
           <div className="bg-white text-black px-2 py-0.5 font-black text-xl italic">tripleS</div>
@@ -168,6 +228,25 @@ export default function App() {
           </div>
         )}
 
+        {view === MODES.CODEX && selectedMember && (
+          <div className="py-6 md:py-10">
+            <button onClick={() => setView(MODES.GALLERY)} className="flex items-center gap-2 text-white/40 hover:text-white font-black uppercase text-[10px] tracking-widest mb-10 transition-colors">
+              <ChevronLeft size={16} /> Back to Assembly
+            </button>
+            <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
+              <MemberAvatar member={selectedMember} size="lg" className="shrink-0" />
+              <div className="flex-1 space-y-8 text-center md:text-left">
+                <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none">{selectedMember.name}</h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="glass-panel p-6"><span className="text-[9px] opacity-20 block mb-1">BIRTHDAY</span>{selectedMember.birthday}</div>
+                  <div className="glass-panel p-6"><span className="text-[9px] opacity-20 block mb-1">COLOR</span>{selectedMember.color}</div>
+                </div>
+                <p className="text-white/60 italic">{selectedMember.bio}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {view === MODES.QUIZ && (
           <div className="max-w-2xl mx-auto glass-panel p-10 text-center">
             <div className="cosmos-font-tracking text-[10px] opacity-20 mb-10">Sequence {currentIndex + 1} / {quizSet.length}</div>
@@ -183,6 +262,13 @@ export default function App() {
               ))}
             </div>
             {isAnswered && <button onClick={() => currentIndex + 1 < quizSet.length ? (setCurrentIndex(currentIndex + 1), generateOptions(quizSet[currentIndex + 1], activeType)) : setView(MODES.RESULT)} className="mt-10 w-full bg-white text-black py-5 font-black italic">NEXT</button>}
+          </div>
+        )}
+
+        {view === MODES.RESULT && (
+          <div className="max-w-md mx-auto py-12 text-center glass-panel p-16">
+            <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-8">Score: {score}</h2>
+            <button onClick={() => setView(MODES.HOME)} className="w-full py-5 bg-white text-black font-black italic uppercase">Return Home</button>
           </div>
         )}
       </main>
